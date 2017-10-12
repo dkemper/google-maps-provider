@@ -62,6 +62,11 @@ final class GoogleMaps extends AbstractHttpProvider implements Provider
     private $privateKey;
 
     /**
+     * @var string|null
+     */
+    private $channel;
+
+    /**
      * Google Maps for Business
      * https://developers.google.com/maps/documentation/business/.
      *
@@ -73,11 +78,12 @@ final class GoogleMaps extends AbstractHttpProvider implements Provider
      *
      * @return GoogleMaps
      */
-    public static function business(HttpClient $client, string  $clientId, string $privateKey = null, string $region = null, string $apiKey = null)
+    public static function business(HttpClient $client, string  $clientId, string $privateKey = null, string $region = null, string $apiKey = null, string $channel = null)
     {
         $provider = new self($client, $region, $apiKey);
         $provider->clientId = $clientId;
         $provider->privateKey = $privateKey;
+        $provider->channel = $channel;
 
         return $provider;
     }
@@ -157,6 +163,10 @@ final class GoogleMaps extends AbstractHttpProvider implements Provider
 
         if (null !== $this->clientId) {
             $url = sprintf('%s&client=%s', $url, $this->clientId);
+
+            if (null !== $this->channel) {
+                $url = sprintf('%s&channel=%s', $url, $this->channel);
+            }
 
             if (null !== $this->privateKey) {
                 $url = $this->signQuery($url);

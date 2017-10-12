@@ -1,5 +1,5 @@
 {
-    "name": "geocoder-php/google-maps-provider",
+    "name": "dkemper/geocoder-php-google-maps-provider-channel",
     "type": "library",
     "description": "Geocoder GoogleMaps adapter",
     "keywords": [],
